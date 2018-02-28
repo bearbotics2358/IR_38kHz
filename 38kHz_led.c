@@ -20,6 +20,13 @@
 #include <avr/io.h>
 #include <avr/sleep.h>
 
+// BD 2/27/18
+// IR_CLOCK_RATE    38000L and clock rate of 8 MHz (no divide by 8)
+// yields 38.8 kHz
+// strong detection - difficult to block from a couple inches away,
+// had to block the beam at the detector
+// fuses: (E:FF, H:DF, L:E2)
+
 // yielded 36.7 kHz on 1MHz clock
 // and opf course now that I returned to this setting after multiple
 // iterations, it measures 38.0 kHz!
