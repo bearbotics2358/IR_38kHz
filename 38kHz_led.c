@@ -35,16 +35,22 @@
 // yielded 38.0 kHz w/8MHz clock, but not as sensitive on detector
 // #define IR_CLOCK_RATE    39500L
 
+/* BD 2/29/20
+	 Add pin 6 (PB1) to toggling also
+	 - this is to double the current capability to drive an IR LED
+*/
+
 void init(void)
 {
-	// use PB0 as output (pin 5)
-	DDRB = 0x01;
-  // toggle pin 5 on compare
-  TCCR0A = _BV(WGM01) | _BV(COM0A0);
+	// use PB0 and PB1 as outputs (pins 5 & 6 respectively)
+	DDRB = 0x03;
+  // toggle pin 5 and pin 6 on compare
+  TCCR0A = _BV(WGM01) | _BV(COM0A0) | _BV(COM0B0);
   TCCR0B = _BV(CS00);
   
   // 38kHz timer
   OCR0A = (F_CPU/(IR_CLOCK_RATE*2L)-1);
+  OCR0B = (F_CPU/(IR_CLOCK_RATE*2L)-1);
 }
 
 int main(void)
